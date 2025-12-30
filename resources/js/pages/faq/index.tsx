@@ -79,7 +79,8 @@ export default function FAQIndex({ faqs }: Props) {
                         <Link href={faq.create().url}>
                             <Button className="cursor-pointer">
                                 <Plus className="mr-2 h-4 w-4" />
-                                Tambah FAQ
+                                <span className='hidden sm:inline'>Tambah FAQ</span>
+
                             </Button>
                         </Link>
                     </CardHeader>

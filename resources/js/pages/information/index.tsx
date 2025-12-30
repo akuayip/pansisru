@@ -78,7 +78,9 @@ export default function InformationIndex({ information: data }: Props) {
                         <Link href={information.create().url}>
                             <Button className="cursor-pointer">
                                 <Plus className="mr-2 h-4 w-4" />
-                                Tambah Informasi
+                                <span className="hidden sm:inline">
+                                    Tambah Informasi
+                                </span>
                             </Button>
                         </Link>
                     </CardHeader>
@@ -117,7 +119,7 @@ export default function InformationIndex({ information: data }: Props) {
                                             </TableCell>
                                             <TableCell>
                                                 {new Date(
-                                                    item.release_date
+                                                    item.release_date,
                                                 ).toLocaleDateString('id-ID')}
                                             </TableCell>
                                             <TableCell>
