@@ -10,7 +10,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard, registration } from '@/routes';
+import { dashboard } from '@/routes';
 import faq from '@/routes/faq';
 import information from '@/routes/information';
 import { type NavItem } from '@/types';
@@ -33,7 +33,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Registration',
-        href: registration(),
+        href: '/registration',
         icon: ClipboardList,
     },
     {
