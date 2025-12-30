@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FAQController;
+use App\Http\Controllers\InformationController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -20,14 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('registration');
     })->name('registration');
 
-    Route::get('information', function () {
-        return Inertia::render('information');
-    })->name('information');
-
-    // Route::get('faq', function () {
-    //     return Inertia::render('faq');
-    // })->name('faq');
-
+    Route::resource('information', InformationController::class);
     Route::resource('faq', FAQController::class);
 });
 

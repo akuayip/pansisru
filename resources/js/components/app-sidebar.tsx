@@ -10,8 +10,9 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard, information, registration } from '@/routes';
+import { dashboard, registration } from '@/routes';
 import faq from '@/routes/faq';
+import information from '@/routes/information';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import {
@@ -37,7 +38,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Information',
-        href: information(),
+        href: information.index().url,
         icon: Info,
     },
     {

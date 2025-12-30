@@ -9,7 +9,7 @@ export default function FAQ() {
     return (
         <section id="faq" className="py-20">
             <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-                <div className="mb-12">
+                <div className="mb-12 justify-center text-center">
                     <h2 className="text-4xl font-bold text-[#1e3a5f] dark:text-white">
                         FAQ
                     </h2>
