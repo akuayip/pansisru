@@ -7,7 +7,6 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
     Select,
@@ -34,7 +33,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function RegistrationRequirementCreate() {
     const { data, setData, post, processing, errors } = useForm({
-        title: '',
         description: '',
         type: 'umum' as 'umum' | 'dokumen',
     });
@@ -66,20 +64,6 @@ export default function RegistrationRequirementCreate() {
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={submit} className="space-y-6">
-                            <div className="space-y-2">
-                                <Label htmlFor="title">Judul</Label>
-                                <Input
-                                    id="title"
-                                    type="text"
-                                    value={data.title}
-                                    onChange={(e) =>
-                                        setData('title', e.target.value)
-                                    }
-                                    placeholder="Masukkan judul syarat"
-                                />
-                                <InputError message={errors.title} />
-                            </div>
-
                             <div className="space-y-2">
                                 <Label htmlFor="description">Deskripsi</Label>
                                 <textarea

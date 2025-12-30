@@ -7,7 +7,6 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
     Select,
@@ -34,7 +33,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 interface RegistrationRequirement {
     id: number;
-    title: string;
     description: string;
     type: 'umum' | 'dokumen';
     created_at: string;
@@ -47,7 +45,6 @@ interface Props {
 
 export default function RegistrationRequirementEdit({ requirement }: Props) {
     const { data, setData, post, processing, errors } = useForm({
-        title: requirement.title,
         description: requirement.description,
         type: requirement.type,
         _method: 'PUT',
@@ -80,20 +77,6 @@ export default function RegistrationRequirementEdit({ requirement }: Props) {
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={submit} className="space-y-6">
-                            <div className="space-y-2">
-                                <Label htmlFor="title">Judul</Label>
-                                <Input
-                                    id="title"
-                                    type="text"
-                                    value={data.title}
-                                    onChange={(e) =>
-                                        setData('title', e.target.value)
-                                    }
-                                    placeholder="Masukkan judul syarat"
-                                />
-                                <InputError message={errors.title} />
-                            </div>
-
                             <div className="space-y-2">
                                 <Label htmlFor="description">Deskripsi</Label>
                                 <textarea

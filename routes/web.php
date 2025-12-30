@@ -25,10 +25,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('registration/flows/reorder', [RegistrationController::class, 'reorderFlows'])->name('registration.flows.reorder');
     Route::post('registration/requirements/reorder', [RegistrationController::class, 'reorderRequirements'])->name('registration.requirements.reorder');
     Route::post('registration/timelines/reorder', [RegistrationController::class, 'reorderTimelines'])->name('registration.timelines.reorder');
+    Route::resource('registration-flow', RegistrationFlowController::class);
+    Route::resource('registration-requirement', RegistrationRequirementController::class);
+    Route::resource('registration-timeline', RegistrationTimelineController::class);
 
     Route::resource('information', InformationController::class);
 
     Route::resource('faq', FAQController::class);
+
 
 });
 

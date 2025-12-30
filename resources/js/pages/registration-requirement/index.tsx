@@ -39,7 +39,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 interface RegistrationRequirement {
     id: number;
-    title: string;
     description: string;
     type: 'umum' | 'dokumen';
     created_at: string;
@@ -90,7 +89,6 @@ export default function RegistrationRequirementIndex({ requirements }: Props) {
                             <TableHeader>
                                 <TableRow>
                                     <TableHead>No</TableHead>
-                                    <TableHead>Judul</TableHead>
                                     <TableHead>Deskripsi</TableHead>
                                     <TableHead>Tipe</TableHead>
                                     <TableHead className="text-right">
@@ -102,7 +100,7 @@ export default function RegistrationRequirementIndex({ requirements }: Props) {
                                 {requirements.length === 0 ? (
                                     <TableRow>
                                         <TableCell
-                                            colSpan={5}
+                                            colSpan={4}
                                             className="text-center"
                                         >
                                             Belum ada data syarat pendaftaran
@@ -112,9 +110,6 @@ export default function RegistrationRequirementIndex({ requirements }: Props) {
                                     requirements.map((requirement, index) => (
                                         <TableRow key={requirement.id}>
                                             <TableCell>{index + 1}</TableCell>
-                                            <TableCell>
-                                                {requirement.title}
-                                            </TableCell>
                                             <TableCell>
                                                 {requirement.description
                                                     .length > 100

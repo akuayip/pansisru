@@ -66,7 +66,6 @@ interface RegistrationFlow {
 
 interface RegistrationRequirement {
     id: number;
-    title: string;
     description: string;
     type: 'umum' | 'dokumen';
     order: number;
@@ -191,10 +190,6 @@ function SortableRequirementItem({
         opacity: isDragging ? 0.5 : 1,
     };
 
-    const getTypeLabel = (type: 'umum' | 'dokumen') => {
-        return type === 'umum' ? 'Persyaratan Umum' : 'Dokumen yang Diperlukan';
-    };
-
     return (
         <div
             ref={setNodeRef}
@@ -210,14 +205,6 @@ function SortableRequirementItem({
                     <GripVertical className="h-4 w-4 text-muted-foreground" />
                 </button>
                 <div className="min-w-0 flex-1">
-                    <div className="mb-1 flex items-center gap-2">
-                        <h4 className="truncate text-sm font-medium">
-                            {requirement.title}
-                        </h4>
-                        <span className="inline-flex rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-semibold whitespace-nowrap text-blue-800">
-                            {getTypeLabel(requirement.type)}
-                        </span>
-                    </div>
                     <p className="line-clamp-2 text-xs text-muted-foreground">
                         {requirement.description}
                     </p>
@@ -550,7 +537,7 @@ export default function RegistrationIndex({
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Registration" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto p-4">
-                <div className="grid gap-4 md:grid-cols-3">
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {/* Alur Pendaftaran */}
                     <Card>
                         <CardHeader>

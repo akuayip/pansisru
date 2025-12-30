@@ -25,7 +25,6 @@ class RegistrationRequirementController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
             'description' => 'required|string',
             'type' => 'required|in:umum,dokumen',
         ]);
@@ -46,7 +45,6 @@ class RegistrationRequirementController extends Controller
     public function update(Request $request, RegistrationRequirement $registrationRequirement)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
             'description' => 'required|string',
             'type' => 'required|in:umum,dokumen',
         ]);
