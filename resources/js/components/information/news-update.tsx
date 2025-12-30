@@ -5,7 +5,7 @@ export default function NewsUpdate() {
             <div className="my-16 border-t border-gray-300 dark:border-gray-700"></div>
             {/* Newest Update Section */}
             <div className="text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">
+                <h2 className="text-3xl font-bold tracking-tight text-[#1e3a5f] sm:text-4xl dark:text-white">
                     Newest Update
                 </h2>
             </div>

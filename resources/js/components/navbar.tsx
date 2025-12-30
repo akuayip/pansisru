@@ -17,7 +17,7 @@ export default function Navbar({ auth }: { auth: SharedData['auth'] }) {
                             alt="Logo"
                             className="h-10 w-10"
                         />
-                        <span className="text-md text-lg font-bold text-gray-900 lg:text-xl dark:text-white">
+                        <span className="text-md text-lg font-bold text-[#1e3a5f] lg:text-xl dark:text-white">
                             PENSISRU SMA KEBANGGAAN
                         </span>
                     </div>

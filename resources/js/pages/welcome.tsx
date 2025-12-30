@@ -1,17 +1,13 @@
 import FAQ from '@/components/faq';
 import Footer from '@/components/footer';
-import Navbar from '@/components/navbar';
 import NewsUpdate from '@/components/information/news-update';
 import RegisInfo from '@/components/information/regis-info';
+import Navbar from '@/components/navbar';
 import { dashboard, login, register } from '@/routes';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
-export default function Welcome({
-    canRegister = true,
-}: {
-    canRegister?: boolean;
-}) {
+export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
 
     return (
@@ -46,7 +42,7 @@ export default function Welcome({
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-8">
                                 <div className="text-center lg:text-left">
-                                    <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl dark:text-white">
+                                    <h1 className="text-3xl font-extrabold tracking-tight text-[#1e3a5f] sm:text-4xl lg:text-5xl dark:text-white">
                                         PENSISRU
                                         <span className="block text-3xl md:text-4xl">
                                             Penerimaan Siswa Baru
@@ -55,7 +51,7 @@ export default function Welcome({
                                             SMA KEBANGGAAN
                                         </span>
                                     </h1>
-                                    <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
+                                    <p className="mt-6 text-lg leading-8 text-[#2d435f] dark:text-gray-300">
                                         Platform manajemen penerimaan siswa baru
                                         terpadu yang memudahkan pengelolaan
                                         administrasi dan komunikasi antara calon
