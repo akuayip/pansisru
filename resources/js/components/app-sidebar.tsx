@@ -16,6 +16,7 @@ import information from '@/routes/information';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import {
+    BookmarkCheck,
     BookOpen,
     ClipboardList,
     Folder,
@@ -40,6 +41,11 @@ const mainNavItems: NavItem[] = [
         title: 'Information',
         href: information.index().url,
         icon: Info,
+    },
+    {
+        title: 'Bank Soal',
+        href: '/bank-soal',
+        icon: BookmarkCheck,
     },
     {
         title: 'FAQ',

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BankSoalController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\RegistrationController;
@@ -30,6 +31,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('registration-timeline', RegistrationTimelineController::class);
 
     Route::resource('information', InformationController::class);
+
+    Route::resource('bank-soal', BankSoalController::class)->only(['index', 'store', 'update', 'destroy']);
 
     Route::resource('faq', FAQController::class);
 
