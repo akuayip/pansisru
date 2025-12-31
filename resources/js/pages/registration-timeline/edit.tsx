@@ -50,8 +50,10 @@ interface Props {
 export default function RegistrationTimelineEdit({ timeline }: Props) {
     const { data, setData, post, processing, errors } = useForm({
         title: timeline.title,
-        start_date: timeline.start_date,
-        end_date: timeline.end_date,
+        start_date: timeline.start_date
+            ? timeline.start_date.split('T')[0]
+            : '',
+        end_date: timeline.end_date ? timeline.end_date.split('T')[0] : '',
         status: timeline.status,
         description: timeline.description,
         _method: 'PUT',
