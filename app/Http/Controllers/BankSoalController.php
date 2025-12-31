@@ -21,7 +21,7 @@ class BankSoalController extends Controller
         
         $soals = $query->latest()->paginate($perPage)->withQueryString();
         
-        return Inertia::render('bank-soal/index', [
+        return Inertia::render('dashboard/bank-soal', [
             'soals' => $soals,
             'filters' => [
                 'search' => $search,

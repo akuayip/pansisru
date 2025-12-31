@@ -12,14 +12,9 @@ class FAQController extends Controller
     {
         $faqs = FAQ::get();
         
-        return Inertia::render('faq/index', [
+        return Inertia::render('dashboard/faq', [
             'faqs' => $faqs
         ]);
-    }
-
-    public function create()
-    {
-        return Inertia::render('faq/create');
     }
 
     public function store(Request $request)
@@ -33,13 +28,6 @@ class FAQController extends Controller
 
         return redirect()->route('faq.index')
             ->with('success', 'FAQ berhasil ditambahkan');
-    }
-
-    public function edit(FAQ $faq)
-    {
-        return Inertia::render('faq/edit', [
-            'faq' => $faq
-        ]);
     }
 
     public function update(Request $request, FAQ $faq)

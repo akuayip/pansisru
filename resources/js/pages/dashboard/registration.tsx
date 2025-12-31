@@ -1,3 +1,6 @@
+import { FlowForm } from '@/components/dashboard/registration-flow';
+import { RequirementForm } from '@/components/dashboard/registration-requirement';
+import { TimelineForm } from '@/components/dashboard/registration-timeline';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -18,6 +21,11 @@ import {
 } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
+import type {
+    RegistrationFlow,
+    RegistrationRequirement,
+    RegistrationTimeline,
+} from '@/types/registration';
 import {
     closestCenter,
     DndContext,
@@ -35,7 +43,7 @@ import {
     verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import axios from 'axios';
 import {
     Calendar,
@@ -54,36 +62,6 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/registration',
     },
 ];
-
-interface RegistrationFlow {
-    id: number;
-    title: string;
-    description: string;
-    order: number;
-    created_at: string;
-    updated_at: string;
-}
-
-interface RegistrationRequirement {
-    id: number;
-    description: string;
-    type: 'umum' | 'dokumen';
-    order: number;
-    created_at: string;
-    updated_at: string;
-}
-
-interface RegistrationTimeline {
-    id: number;
-    title: string;
-    start_date: string;
-    end_date: string;
-    description: string;
-    status: string;
-    order: number;
-    created_at: string;
-    updated_at: string;
-}
 
 interface Props {
     flows: RegistrationFlow[];
@@ -350,6 +328,24 @@ export default function RegistrationIndex({
     );
     const [timelineItems, setTimelineItems] = useState(timelines);
 
+    // Flow form states
+    const [showFlowForm, setShowFlowForm] = useState(false);
+    const [editingFlow, setEditingFlow] = useState<
+        RegistrationFlow | undefined
+    >(undefined);
+
+    // Requirement form states
+    const [showRequirementForm, setShowRequirementForm] = useState(false);
+    const [editingRequirement, setEditingRequirement] = useState<
+        RegistrationRequirement | undefined
+    >(undefined);
+
+    // Timeline form states
+    const [showTimelineForm, setShowTimelineForm] = useState(false);
+    const [editingTimeline, setEditingTimeline] = useState<
+        RegistrationTimeline | undefined
+    >(undefined);
+
     const flowSensors = useSensors(
         useSensor(PointerSensor),
         useSensor(KeyboardSensor, {
@@ -514,23 +510,71 @@ export default function RegistrationIndex({
 
     const handleDeleteFlow = () => {
         if (deleteFlowId) {
-            router.delete(`/registration-flow/${deleteFlowId}`);
+            router.delete(`/registration/flow/${deleteFlowId}`);
             setDeleteFlowId(null);
         }
     };
 
     const handleDeleteRequirement = () => {
         if (deleteRequirementId) {
-            router.delete(`/registration-requirement/${deleteRequirementId}`);
+            router.delete(`/registration/requirement/${deleteRequirementId}`);
             setDeleteRequirementId(null);
         }
     };
 
     const handleDeleteTimeline = () => {
         if (deleteTimelineId) {
-            router.delete(`/registration-timeline/${deleteTimelineId}`);
+            router.delete(`/registration/timeline/${deleteTimelineId}`);
             setDeleteTimelineId(null);
         }
+    };
+
+    // Flow handlers
+    const handleCreateFlow = () => {
+        setEditingFlow(undefined);
+        setShowFlowForm(true);
+    };
+
+    const handleEditFlow = (flow: RegistrationFlow) => {
+        setEditingFlow(flow);
+        setShowFlowForm(true);
+    };
+
+    const handleCancelFlow = () => {
+        setShowFlowForm(false);
+        setEditingFlow(undefined);
+    };
+
+    // Requirement handlers
+    const handleCreateRequirement = () => {
+        setEditingRequirement(undefined);
+        setShowRequirementForm(true);
+    };
+
+    const handleEditRequirement = (requirement: RegistrationRequirement) => {
+        setEditingRequirement(requirement);
+        setShowRequirementForm(true);
+    };
+
+    const handleCancelRequirement = () => {
+        setShowRequirementForm(false);
+        setEditingRequirement(undefined);
+    };
+
+    // Timeline handlers
+    const handleCreateTimeline = () => {
+        setEditingTimeline(undefined);
+        setShowTimelineForm(true);
+    };
+
+    const handleEditTimeline = (timeline: RegistrationTimeline) => {
+        setEditingTimeline(timeline);
+        setShowTimelineForm(true);
+    };
+
+    const handleCancelTimeline = () => {
+        setShowTimelineForm(false);
+        setEditingTimeline(undefined);
     };
 
     return (
@@ -553,14 +597,21 @@ export default function RegistrationIndex({
                                         </CardDescription>
                                     </div>
                                 </div>
-                                <Link href="/registration-flow/create">
-                                    <Button size="sm">
-                                        <Plus className="h-4 w-4" />
-                                    </Button>
-                                </Link>
+                                <Button size="sm" onClick={handleCreateFlow}>
+                                    <Plus className="h-4 w-4" />
+                                </Button>
                             </div>
                         </CardHeader>
                         <CardContent>
+                            {/* Flow Form */}
+                            {showFlowForm && (
+                                <FlowForm
+                                    flow={editingFlow}
+                                    onSuccess={handleCancelFlow}
+                                    onCancel={handleCancelFlow}
+                                />
+                            )}
+
                             <div className="space-y-3">
                                 {flowItems.length === 0 ? (
                                     <p className="py-4 text-center text-sm text-muted-foreground">
@@ -591,9 +642,9 @@ export default function RegistrationIndex({
                                                     <div className="flex-1">
                                                         <SortableFlowItem
                                                             flow={flow}
-                                                            onEdit={(id) =>
-                                                                router.visit(
-                                                                    `/registration-flow/${id}/edit`,
+                                                            onEdit={() =>
+                                                                handleEditFlow(
+                                                                    flow,
                                                                 )
                                                             }
                                                             onDelete={(id) =>
@@ -627,14 +678,24 @@ export default function RegistrationIndex({
                                         </CardDescription>
                                     </div>
                                 </div>
-                                <Link href="/registration-requirement/create">
-                                    <Button size="sm">
-                                        <Plus className="h-4 w-4" />
-                                    </Button>
-                                </Link>
+                                <Button
+                                    size="sm"
+                                    onClick={handleCreateRequirement}
+                                >
+                                    <Plus className="h-4 w-4" />
+                                </Button>
                             </div>
                         </CardHeader>
                         <CardContent>
+                            {/* Requirement Form */}
+                            {showRequirementForm && (
+                                <RequirementForm
+                                    requirement={editingRequirement}
+                                    onSuccess={handleCancelRequirement}
+                                    onCancel={handleCancelRequirement}
+                                />
+                            )}
+
                             <div className="space-y-6">
                                 {/* Persyaratan Umum */}
                                 <div>
@@ -683,11 +744,9 @@ export default function RegistrationIndex({
                                                                         requirement={
                                                                             requirement
                                                                         }
-                                                                        onEdit={(
-                                                                            id,
-                                                                        ) =>
-                                                                            router.visit(
-                                                                                `/registration-requirement/${id}/edit`,
+                                                                        onEdit={() =>
+                                                                            handleEditRequirement(
+                                                                                requirement,
                                                                             )
                                                                         }
                                                                         onDelete={(
@@ -758,11 +817,9 @@ export default function RegistrationIndex({
                                                                         requirement={
                                                                             requirement
                                                                         }
-                                                                        onEdit={(
-                                                                            id,
-                                                                        ) =>
-                                                                            router.visit(
-                                                                                `/registration-requirement/${id}/edit`,
+                                                                        onEdit={() =>
+                                                                            handleEditRequirement(
+                                                                                requirement,
                                                                             )
                                                                         }
                                                                         onDelete={(
@@ -801,14 +858,24 @@ export default function RegistrationIndex({
                                         </CardDescription>
                                     </div>
                                 </div>
-                                <Link href="/registration-timeline/create">
-                                    <Button size="sm">
-                                        <Plus className="h-4 w-4" />
-                                    </Button>
-                                </Link>
+                                <Button
+                                    size="sm"
+                                    onClick={handleCreateTimeline}
+                                >
+                                    <Plus className="h-4 w-4" />
+                                </Button>
                             </div>
                         </CardHeader>
                         <CardContent>
+                            {/* Timeline Form */}
+                            {showTimelineForm && (
+                                <TimelineForm
+                                    timeline={editingTimeline}
+                                    onSuccess={handleCancelTimeline}
+                                    onCancel={handleCancelTimeline}
+                                />
+                            )}
+
                             <div className="space-y-3">
                                 {timelineItems.length === 0 ? (
                                     <p className="py-4 text-center text-sm text-muted-foreground">
@@ -842,9 +909,9 @@ export default function RegistrationIndex({
                                                                 timeline={
                                                                     timeline
                                                                 }
-                                                                onEdit={(id) =>
-                                                                    router.visit(
-                                                                        `/registration-timeline/${id}/edit`,
+                                                                onEdit={() =>
+                                                                    handleEditTimeline(
+                                                                        timeline,
                                                                     )
                                                                 }
                                                                 onDelete={(

@@ -13,14 +13,9 @@ class InformationController extends Controller
     {
         $information = Information::orderBy('release_date', 'desc')->get();
         
-        return Inertia::render('information/index', [
+        return Inertia::render('dashboard/information', [
             'information' => $information
         ]);
-    }
-
-    public function create()
-    {
-        return Inertia::render('information/create');
     }
 
     public function store(Request $request)
@@ -39,13 +34,6 @@ class InformationController extends Controller
 
         return redirect()->route('information.index')
             ->with('success', 'Informasi berhasil ditambahkan');
-    }
-
-    public function edit(Information $information)
-    {
-        return Inertia::render('information/edit', [
-            'information' => $information
-        ]);
     }
 
     public function update(Request $request, Information $information)
