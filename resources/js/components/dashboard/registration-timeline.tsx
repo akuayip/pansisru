@@ -9,21 +9,9 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { type BreadcrumbItem } from '@/types';
 import type { RegistrationTimeline } from '@/types/registration';
 import { router, useForm } from '@inertiajs/react';
 import { X } from 'lucide-react';
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Timeline Pendaftaran',
-        href: '/registration-timeline',
-    },
-];
-
-interface Props {
-    timelines: RegistrationTimeline[];
-}
 
 // Export form component untuk digunakan di tempat lain
 interface TimelineFormProps {

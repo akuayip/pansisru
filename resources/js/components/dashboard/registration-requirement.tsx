@@ -8,21 +8,9 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { type BreadcrumbItem } from '@/types';
 import type { RegistrationRequirement } from '@/types/registration';
 import { router, useForm } from '@inertiajs/react';
 import { X } from 'lucide-react';
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Syarat Pendaftaran',
-        href: '/registration-requirement',
-    },
-];
-
-interface Props {
-    requirements: RegistrationRequirement[];
-}
 
 // Export form component untuk digunakan di tempat lain
 interface RequirementFormProps {
