@@ -8,7 +8,7 @@ import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { disable, enable, show } from '@/routes/two-factor';
 import { type BreadcrumbItem } from '@/types';
-import { Form, Head } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { ShieldBan, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
 
@@ -40,6 +40,21 @@ export default function TwoFactor({
     } = useTwoFactorAuth();
     const [showSetupModal, setShowSetupModal] = useState<boolean>(false);
 
+    const disableForm = useForm({});
+    const enableForm = useForm({});
+
+    const handleDisable = (e: React.FormEvent) => {
+        e.preventDefault();
+        disableForm.delete(disable().url);
+    };
+
+    const handleEnable = (e: React.FormEvent) => {
+        e.preventDefault();
+        enableForm.post(enable().url, {
+            onSuccess: () => setShowSetupModal(true),
+        });
+    };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Two-Factor Authentication" />
@@ -66,17 +81,15 @@ export default function TwoFactor({
                             />
 
                             <div className="relative inline">
-                                <Form {...disable.form()}>
-                                    {({ processing }) => (
-                                        <Button
-                                            variant="destructive"
-                                            type="submit"
-                                            disabled={processing}
-                                        >
-                                            <ShieldBan /> Disable 2FA
-                                        </Button>
-                                    )}
-                                </Form>
+                                <form onSubmit={handleDisable}>
+                                    <Button
+                                        variant="destructive"
+                                        type="submit"
+                                        disabled={disableForm.processing}
+                                    >
+                                        <ShieldBan /> Disable 2FA
+                                    </Button>
+                                </form>
                             </div>
                         </div>
                     ) : (
@@ -98,22 +111,15 @@ export default function TwoFactor({
                                         Continue Setup
                                     </Button>
                                 ) : (
-                                    <Form
-                                        {...enable.form()}
-                                        onSuccess={() =>
-                                            setShowSetupModal(true)
-                                        }
-                                    >
-                                        {({ processing }) => (
-                                            <Button
-                                                type="submit"
-                                                disabled={processing}
-                                            >
-                                                <ShieldCheck />
-                                                Enable 2FA
-                                            </Button>
-                                        )}
-                                    </Form>
+                                    <form onSubmit={handleEnable}>
+                                        <Button
+                                            type="submit"
+                                            disabled={enableForm.processing}
+                                        >
+                                            <ShieldCheck />
+                                            Enable 2FA
+                                        </Button>
+                                    </form>
                                 )}
                             </div>
                         </div>
