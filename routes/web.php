@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BankSoalController;
+use App\Http\Controllers\CBTController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\RegistrationController;
@@ -9,7 +10,7 @@ use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
 Route::get('/', function () {
-    return Inertia::render('welcome', [
+    return Inertia::render('landingpage', [
         'canRegister' => Features::enabled(Features::registration()),
     ]);
 })->name('home');
@@ -43,8 +44,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('information', InformationController::class);
     Route::resource('bank-soal', BankSoalController::class);
     Route::resource('faq', FAQController::class);
+
+    // CBT Routes
+    Route::get('cbt', [CBTController::class, 'index'])->name('cbt.index');
+    Route::get('cbt/test', [CBTController::class, 'test'])->name('cbt.test');
+    Route::post('cbt/submit', [CBTController::class, 'submit'])->name('cbt.submit');
+    Route::get('cbt/result', [CBTController::class, 'result'])->name('cbt.result');
+
 });
-
-
 
 require __DIR__.'/settings.php';

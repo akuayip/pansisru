@@ -18,6 +18,7 @@ import { Link } from '@inertiajs/react';
 import {
     BookmarkCheck,
     BookOpen,
+    ClipboardCheck,
     ClipboardList,
     Folder,
     HelpCircle,
@@ -31,6 +32,11 @@ const mainNavItems: NavItem[] = [
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
+    },
+    {
+        title: 'Tes Akademik',
+        href: '/cbt',
+        icon: ClipboardCheck,
     },
     {
         title: 'Registration',

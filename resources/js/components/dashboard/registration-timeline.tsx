@@ -123,7 +123,7 @@ export function TimelineForm({
                 <Label htmlFor="timeline-status">Status</Label>
                 <Select
                     value={data.status}
-                    onValueChange={(value) => setData('status', value as any)}
+                    onValueChange={(value) => setData('status', value as 'Segera' | 'Dibuka' | 'Diproses' | 'Ditutup')}
                 >
                     <SelectTrigger className="mt-1">
                         <SelectValue />
