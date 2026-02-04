@@ -5,6 +5,7 @@ use App\Http\Controllers\CBTController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\UserManagementController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -44,6 +45,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('information', InformationController::class);
     Route::resource('bank-soal', BankSoalController::class);
     Route::resource('faq', FAQController::class);
+
+    // User Management Routes
+    Route::get('users', [UserManagementController::class, 'index'])->name('users.index');
+    Route::put('users/{user}', [UserManagementController::class, 'update'])->name('users.update');
+    Route::delete('users/{user}', [UserManagementController::class, 'destroy'])->name('users.destroy');
 
     // CBT Routes
     Route::get('cbt', [CBTController::class, 'index'])->name('cbt.index');

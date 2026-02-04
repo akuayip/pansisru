@@ -13,6 +13,7 @@ import {
 import { dashboard } from '@/routes';
 import faq from '@/routes/faq';
 import information from '@/routes/information';
+import userRoutes from '@/routes/users';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import {
@@ -24,6 +25,7 @@ import {
     HelpCircle,
     Info,
     LayoutGrid,
+    Users,
 } from 'lucide-react';
 import AppLogo from './app-logo';
 
@@ -57,6 +59,11 @@ const mainNavItems: NavItem[] = [
         title: 'FAQ',
         href: faq.index().url,
         icon: HelpCircle,
+    },
+    {
+        title: 'Manajemen Akun',
+        href: userRoutes.index().url,
+        icon: Users,
     },
 ];
 
